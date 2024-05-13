@@ -1,0 +1,202 @@
+\doxysection{Flash\+Card\+Frame.\+cpp}
+\hypertarget{_flash_card_frame_8cpp_source}{}\label{_flash_card_frame_8cpp_source}\index{src/FlashCardFrame.cpp@{src/FlashCardFrame.cpp}}
+\mbox{\hyperlink{_flash_card_frame_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}../include/FlashCardFrame.h"{}}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}../include/FileManagement.h"{}}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}../include/AromaControl.h"{}}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00018}00018\ FlashCardFrame::FlashCardFrame(\textcolor{keyword}{const}\ wxString\&\ title,\ \textcolor{keyword}{const}\ wxPoint\&\ pos,\ \textcolor{keyword}{const}\ wxSize\&\ size)}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00019}00019\ \ \ \ \ :\ wxFrame(nullptr,\ wxID\_ANY,\ title,\ pos,\ size),\ decks()\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{comment}{//\ Create\ the\ main\ panel}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00022}00022\ \ \ \ \ wxPanel*\ panel\ =\ \textcolor{keyword}{new}\ wxPanel(\textcolor{keyword}{this},\ wxID\_ANY);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00024}00024\ \ \ \ \ \textcolor{comment}{//\ Create\ UI\ elements}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00025}00025\ \ \ \ \ deckListBox\ =\ \textcolor{keyword}{new}\ wxListBox(panel,\ wxID\_ANY,\ wxDefaultPosition,\ wxSize(300,\ 400),\ 0,\ \textcolor{keyword}{nullptr},\ wxLB\_SINGLE);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00026}00026\ \ \ \ \ selectButton\ =\ \textcolor{keyword}{new}\ wxButton(panel,\ wxID\_ANY,\ \textcolor{stringliteral}{"{}Study\ Deck"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00027}00027\ \ \ \ \ createButton\ =\ \textcolor{keyword}{new}\ wxButton(panel,\ wxID\_ANY,\ \textcolor{stringliteral}{"{}Create\ Deck"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00028}00028\ \ \ \ \ addCardButton\ =\ \textcolor{keyword}{new}\ wxButton(panel,\ wxID\_ANY,\ \textcolor{stringliteral}{"{}Add\ Card"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00029}00029\ \ \ \ \ aromaLibraryButton\ =\ \textcolor{keyword}{new}\ wxButton(panel,\ wxID\_ANY,\ \textcolor{stringliteral}{"{}Aroma\ Library"{}});\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00030}00030\ \ \ \ \ aromaToggle=\ \textcolor{keyword}{new}\ wxCheckBox(panel,\ wxID\_ANY,\ \textcolor{stringliteral}{"{}Toggle\ Aroma"{}},\ wxDefaultPosition,\ wxDefaultSize,\ 0,\ wxDefaultValidator);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00031}00031\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00032}00032\ \ \ \ \ \textcolor{comment}{//\ Create\ sizers\ for\ layout}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00033}00033\ \ \ \ \ wxBoxSizer*\ vBox\ =\ \textcolor{keyword}{new}\ wxBoxSizer(wxVERTICAL);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00034}00034\ \ \ \ \ wxBoxSizer*\ hBox\ =\ \textcolor{keyword}{new}\ wxBoxSizer(wxHORIZONTAL);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00036}00036\ \ \ \ \ \textcolor{comment}{//\ Add\ UI\ elements\ to\ sizers}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00037}00037\ \ \ \ \ hBox-\/>Add(aromaToggle,\ 0,\ wxALIGN\_CENTER\ |\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00038}00038\ \ \ \ \ hBox-\/>Add(aromaLibraryButton,\ 0,\ wxALIGN\_CENTER\ |\ wxALL,\ 10);\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00039}00039\ \ \ \ \ hBox-\/>Add(selectButton,\ 0,\ wxALIGN\_CENTER\ |\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00040}00040\ \ \ \ \ hBox-\/>Add(createButton,\ 0,\ wxALIGN\_CENTER\ |\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00041}00041\ \ \ \ \ hBox-\/>Add(addCardButton,\ 0,\ wxALIGN\_CENTER\ |\ wxALL,\ 10);\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00042}00042\ \ \ \ \ vBox-\/>Add(deckListBox,\ 1,\ wxEXPAND\ |\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00043}00043\ \ \ \ \ vBox-\/>Add(hBox,\ 0,\ wxALIGN\_CENTER\ |\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00044}00044\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{comment}{//\ Set\ sizer\ for\ the\ panel}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00046}00046\ \ \ \ \ panel-\/>SetSizer(vBox);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ Initialize\ variables}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00049}00049\ \ \ \ \ aromaSync\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00051}00051\ \ \ \ \ \textcolor{comment}{//\ Bind\ events\ to\ functions}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00052}00052\ \ \ \ \ deckListBox-\/>Bind(wxEVT\_LISTBOX,\ \&FlashCardFrame::OnDeckSelected,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00053}00053\ \ \ \ \ selectButton-\/>Bind(wxEVT\_BUTTON,\ \&FlashCardFrame::OnShowFlashcard,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00054}00054\ \ \ \ \ createButton-\/>Bind(wxEVT\_BUTTON,\ \&FlashCardFrame::createDeck,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00055}00055\ \ \ \ \ addCardButton-\/>Bind(wxEVT\_BUTTON,\ \&FlashCardFrame::addCard,\ \textcolor{keyword}{this});\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00056}00056\ \ \ \ \ aromaLibraryButton-\/>Bind(wxEVT\_BUTTON,\ \&FlashCardFrame::toggleAromaLibrary,\ \textcolor{keyword}{this});\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00057}00057\ \ \ \ \ aromaToggle-\/>Bind(wxEVT\_CHECKBOX,\ \&FlashCardFrame::toggleAromaSync,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00058}00058\ \ \ \ \ Connect(wxEVT\_CLOSE\_WINDOW,\ wxCloseEventHandler(FlashCardFrame::OnClose));}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00060}00060\ \ \ \ \ \textcolor{comment}{//\ Load\ existing\ decks}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00061}00061\ \ \ \ \ decks\ =\ \mbox{\hyperlink{_file_management_8cpp_a54f34fdd05361e7b4d4b799d5b182434}{loadDecks}}();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00062}00062\ \ \ \ \ LoadDecks();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00064}00064\ \ \ \ \ aromas.Add(\textcolor{stringliteral}{"{}1"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00065}00065\ \ \ \ \ aromas.Add(\textcolor{stringliteral}{"{}2"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00066}00066\ \ \ \ \ aromas.Add(\textcolor{stringliteral}{"{}3"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00068}00068\ \ \ \ \ \textcolor{comment}{//\ Initialize\ pins}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00069}00069\ \ \ \ \ \mbox{\hyperlink{_aroma_control_8cpp_a6f4ebdd47678e128db4cb66886281c64}{initPin}}(PIN\_ONE);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00070}00070\ \ \ \ \ \mbox{\hyperlink{_aroma_control_8cpp_a6f4ebdd47678e128db4cb66886281c64}{initPin}}(PIN\_TWO);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00071}00071\ \ \ \ \ \mbox{\hyperlink{_aroma_control_8cpp_a6f4ebdd47678e128db4cb66886281c64}{initPin}}(PIN\_THREE);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00072}00072\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00078}00078\ \textcolor{keywordtype}{void}\ FlashCardFrame::OnDeckSelected(wxCommandEvent\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00079}00079\ \ \ \ \ wxString\ selectedDeck\ =\ deckListBox-\/>GetStringSelection();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00080}00080\ \ \ \ \ LoadFlashcards(selectedDeck);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00081}00081\ \ \ \ \ addCardButton-\/>Enable();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00082}00082\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00088}00088\ \textcolor{keywordtype}{void}\ FlashCardFrame::OnClose(wxCloseEvent\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00090}00090\ \ \ \ \ \textcolor{comment}{//\ Saves\ the\ current\ decks}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00091}00091\ \ \ \ \ \mbox{\hyperlink{_file_management_8cpp_a2b97ec679debd2067b629d55efa3ebf4}{saveDecks}}(decks);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00092}00092\ \ \ \ \ \textcolor{keyword}{event}.Skip();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00093}00093\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00098}00098\ \textcolor{keywordtype}{void}\ FlashCardFrame::LoadDecks()\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ decks.size();\ i++)\{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (deckListBox-\/>FindString(decks[i]-\/>getName())\ ==\ wxNOT\_FOUND)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ wxString\ deckSize\ =\ std::to\_string(decks[i]-\/>getCards().size());}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ wxString\ displayString\ =\ decks[i]-\/>getName();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ deckListBox-\/>Append(displayString);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00105}00105\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00106}00106\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00112}00112\ \textcolor{keywordtype}{void}\ FlashCardFrame::LoadFlashcards(wxString\ deckName)\{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00113}00113\ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ decks.size();\ i++\ )\{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(decks[i]-\/>getName()\ ==\ deckName)\{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ currentDeck\ =\ decks[i];}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00118}00118\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00119}00119\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00126}00126\ \textcolor{keywordtype}{void}\ FlashCardFrame::OnShowFlashcard(wxCommandEvent\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00127}00127\ \ \ \ \ wxString\ selectedDeck\ =\ deckListBox-\/>GetStringSelection();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00128}00128\ \ \ \ \ \textcolor{keywordflow}{if}\ (selectedDeck.IsEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00129}00129\ \ \ \ \ \ \ \ \ wxMessageBox(\textcolor{stringliteral}{"{}Please\ select\ a\ deck\ first."{}},\ \textcolor{stringliteral}{"{}Error"{}},\ wxOK\ |\ wxICON\_ERROR);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00131}00131\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00132}00132\ \ \ \ \ \textcolor{keywordflow}{if}\ (currentDeck-\/>getCards().size()\ <=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ wxMessageBox(\textcolor{stringliteral}{"{}No\ FlashCards\ In\ Deck"{}},\ \textcolor{stringliteral}{"{}Error"{}},\ wxOK\ |\ wxICON\_ERROR);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00135}00135\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00136}00136\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00137}00137\ \ \ \ \ std::unique\_ptr<FlashCardDialog>\ flashcardDialog\ =\ std::make\_unique<FlashCardDialog>(\textcolor{keyword}{this},\ \textcolor{stringliteral}{"{}Flashcards"{}},\ currentDeck-\/>getCards());}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00138}00138\ \ \ \ \ flashcardDialog-\/>ShowModal();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00139}00139\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00146}00146\ \textcolor{keywordtype}{void}\ FlashCardFrame::createDeck(wxCommandEvent\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00147}00147\ \ \ \ \ wxTextEntryDialog\ dialog(\textcolor{keyword}{this},\ \textcolor{stringliteral}{"{}Enter\ the\ name\ for\ the\ new\ deck:"{}},\ \textcolor{stringliteral}{"{}Create\ Deck"{}},\ \textcolor{stringliteral}{"{}New\ Deck"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00149}00149\ \ \ \ \ \textcolor{keywordflow}{if}\ (dialog.ShowModal()\ ==\ wxID\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ wxString\ newDeckName\ =\ dialog.GetValue();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!newDeckName.IsEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (deckListBox-\/>FindString(newDeckName)\ ==\ wxNOT\_FOUND)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<FlashCardDeck>\ deck\ =\ std::make\_shared<FlashCardDeck>(newDeckName.utf8\_string());}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ decks.push\_back(deck);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LoadDecks();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ShowErrorDialog(\textcolor{stringliteral}{"{}Deck\ Already\ Exists"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00162}00162\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00163}00163\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00164}00164\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00169}00169\ \textcolor{keywordtype}{void}\ FlashCardFrame::ShowErrorDialog(\textcolor{keyword}{const}\ wxString\&\ errorMessage)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00170}00170\ \ \ \ \ wxMessageBox(errorMessage,\ \textcolor{stringliteral}{"{}Error"{}},\ wxOK\ |\ wxICON\_ERROR);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00171}00171\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00178}00178\ \textcolor{keywordtype}{void}\ FlashCardFrame::addCard(wxCommandEvent\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00179}00179\ \ \ \ \ wxString\ selectedDeck\ =\ deckListBox-\/>GetStringSelection();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00181}00181\ \ \ \ \ \textcolor{keywordflow}{if}\ (selectedDeck.IsEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ wxMessageBox(\textcolor{stringliteral}{"{}Please\ select\ a\ deck\ first."{}},\ \textcolor{stringliteral}{"{}Error"{}},\ wxOK\ |\ wxICON\_ERROR);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00184}00184\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00186}00186\ \ \ \ \ wxTextEntryDialog\ dialog(\textcolor{keyword}{this},\textcolor{stringliteral}{"{}Enter\ the\ question\ and\ answer,\ separated\ by\ a\ colon\ :"{}},\ \textcolor{stringliteral}{"{}Add\ Card"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00188}00188\ \ \ \ \ \textcolor{keywordflow}{if}\ (dialog.ShowModal()\ ==\ wxID\_OK)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ wxString\ userInput\ =\ dialog.GetValue();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ position\ of\ the\ colon}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ colonPos\ =\ userInput.Find(\textcolor{charliteral}{':'});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ both\ question\ and\ answer\ are\ provided}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (colonPos\ !=\ wxString::npos)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Split\ the\ string\ into\ question\ and\ answer}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ wxString\ question\ =\ userInput.BeforeFirst(\textcolor{charliteral}{':'});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ wxString\ answer\ =\ userInput.AfterFirst(\textcolor{charliteral}{':'});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Remove\ leading\ and\ trailing\ whitespaces}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ question\ =\ question.Strip(wxString::both);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ answer\ =\ answer.Strip(wxString::both);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ both\ question\ and\ answer\ are\ not\ empty}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!question.IsEmpty()\ \&\&\ !answer.IsEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<FlashCard>\ newCard\ =\ std::make\_shared<FlashCard>(question.ToStdString(),\ answer.ToStdString());}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ currentDeck-\/>addCard(newCard);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wxMessageBox(\textcolor{stringliteral}{"{}Please\ enter\ both\ question\ and\ answer."{}},\ \textcolor{stringliteral}{"{}Error"{}},\ wxOK\ |\ wxICON\_ERROR);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00211}00211\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ wxMessageBox(\textcolor{stringliteral}{"{}Please\ enter\ a\ valid\ input\ with\ a\ colon."{}},\ \textcolor{stringliteral}{"{}Error"{}},\ wxOK\ |\ wxICON\_ERROR);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00213}00213\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00214}00214\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00215}00215\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00222}00222\ \textcolor{keywordtype}{void}\ FlashCardFrame::toggleAromaLibrary(wxCommandEvent\&\ event)\{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00223}00223\ \ \ \ \ std::unique\_ptr<AromaLibraryDialog>\ dialog\ =\ std::make\_unique<AromaLibraryDialog>(\textcolor{stringliteral}{"{}Aroma\ Library"{}},\ aromas);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00224}00224\ \ \ \ \ dialog-\/>ShowModal();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00225}00225\ \ \ \ \ aromas\ =\ dialog-\/>getAromas();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00226}00226\ \ \ \ \ currentAroma\ =\ dialog-\/>getSelectedAroma();}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00227}00227\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00234}00234\ \textcolor{keywordtype}{void}\ FlashCardFrame::toggleAromaSync(wxCommandEvent\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00235}00235\ \ \ \ \ \textcolor{keywordflow}{if}(aromaSync)\{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ aromaSync\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ wxMessageBox(\textcolor{stringliteral}{"{}Aroma\ Sync\ Now\ Off"{}},\ \textcolor{stringliteral}{"{}Aroma\ Sync"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ num;}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ currentAroma.ToInt(\&num);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_aroma_control_8cpp_ac6491ee35dc38079d4ba2b0994dbfcb6}{turnOffPin}}(num);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00241}00241\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ aromaSync\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(currentAroma.IsEmpty())\{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ wxMessageBox(\textcolor{stringliteral}{"{}Aroma\ Sync\ Now\ On,\ Please\ use\ the\ Library\ to\ select"{}},\ \textcolor{stringliteral}{"{}Aroma\ Sync"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ wxMessageBox(\textcolor{stringliteral}{"{}Aroma\ Sync\ Now\ On,\ Current\ Selection:\ "{}}\ +\ currentAroma,\ \textcolor{stringliteral}{"{}Aroma\ Sync"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ num;}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ currentAroma.ToInt(\&num);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_aroma_control_8cpp_a9b3ad14b02482bbc7bf2b839f360d15e}{turnOnPin}}(num);}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00251}00251\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_frame_8cpp_source_l00252}00252\ \}}
+
+\end{DoxyCode}

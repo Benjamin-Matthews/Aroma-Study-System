@@ -1,0 +1,94 @@
+\doxysection{File\+Management.\+cpp}
+\hypertarget{_file_management_8cpp_source}{}\label{_file_management_8cpp_source}\index{src/FileManagement.cpp@{src/FileManagement.cpp}}
+\mbox{\hyperlink{_file_management_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}../include/FileManagement.h"{}}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00013}\mbox{\hyperlink{_file_management_8cpp_a2b97ec679debd2067b629d55efa3ebf4}{00013}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_file_management_8cpp_a2b97ec679debd2067b629d55efa3ebf4}{saveDecks}}(\textcolor{keyword}{const}\ std::vector<std::shared\_ptr<FlashCardDeck>>\ decks)}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00014}00014\ \{}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{comment}{//\ Loops\ over\ each\ deck\ in\ the\ given\ vector}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00017}00017\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::shared\_ptr<FlashCardDeck>\ deck\ :\ decks)\ \{}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Creates\ a\ new\ file\ with\ the\ name\ of\ the\ current\ deck}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ std::string\ name\ =\ deck-\/>getName();}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ std::ostringstream\ deckFileName;}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ deckFileName\ <<\ \textcolor{stringliteral}{"{}decks"{}}\ <<\ \textcolor{stringliteral}{"{}/"{}}\ <<\ name;}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ std::ofstream\ deckFile(deckFileName.str());}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Catches\ errors}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!deckFile)\ \{}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ creating\ deck\ file:\ "{}}\ <<\ deckFileName.str()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loops\ over\ each\ question\ and\ answer,\ and\ writes\ it\ to\ the\ file}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::shared\_ptr<FlashCard>\ card\ :\ deck-\/>getCards())}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ deckFile\ <<\ card-\/>getQuestion()\ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ card-\/>getAnswer()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Closes\ the\ file}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ deckFile.close();}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00039}00039\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00040}00040\ \}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00046}\mbox{\hyperlink{_file_management_8cpp_a54f34fdd05361e7b4d4b799d5b182434}{00046}}\ std::vector<std::shared\_ptr<FlashCardDeck>>\ \mbox{\hyperlink{_file_management_8cpp_a54f34fdd05361e7b4d4b799d5b182434}{loadDecks}}()}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00047}00047\ \{}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{comment}{//\ Creates\ vector\ to\ return}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00050}00050\ \ \ \ \ std::vector<std::shared\_ptr<FlashCardDeck>>\ decks;}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00052}00052\ \ \ \ \ \textcolor{comment}{//\ Loops\ over\ every\ file\ in\ the\ directory\ called\ decks}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ directoryItem\ :\ std::\_\_fs::filesystem::directory\_iterator(\textcolor{stringliteral}{"{}decks"{}}))\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00054}00054\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ensures\ that\ this\ is\ a\ file}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (directoryItem.is\_regular\_file())\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Opens\ a\ fileStream\ to\ read}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ std::ifstream\ inputFile(directoryItem.path());}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (inputFile.is\_open())\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Creates\ a\ deck\ object\ to\ edit\ from\ file}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ deckName\ =\ directoryItem.path().filename().string();}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<FlashCardDeck>\ deck\ =\ std::make\_shared<FlashCardDeck>(deckName);}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loops\ until\ no\ more\ lines\ are\ available}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(inputFile,\ line))\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::istringstream\ iss(line);}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ question;}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ answer;}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Splits\ line\ into\ question\ and\ answer}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::getline(iss,\ question,\ \textcolor{charliteral}{':'})\ \&\&\ std::getline(iss,\ answer))\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Creates\ a\ FlashCard\ with\ question\ and\ answer,\ adds\ it\ to\ the\ deck}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<FlashCard>\ card\ =\ std::make\_shared<FlashCard>(question,\ answer);}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ deck-\/>addCard(card);}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Closes\ current\ file,\ and\ adds\ deck\ to\ the\ vector}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inputFile.close();}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ decks.push\_back(deck);}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Prints\ error\ if\ files\ cannot\ be\ opened}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ opening\ file:\ "{}}\ <<\ directoryItem.path()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00098}00098\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{return}\ decks;}
+\DoxyCodeLine{\Hypertarget{_file_management_8cpp_source_l00101}00101\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,66 @@
+\doxysection{src/\+File\+Management.cpp File Reference}
+\hypertarget{_file_management_8cpp}{}\label{_file_management_8cpp}\index{src/FileManagement.cpp@{src/FileManagement.cpp}}
+
+
+implements functions for saving and loading decks.  
+
+
+{\ttfamily \#include "{}../include/\+File\+Management.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_file_management_8cpp_a2b97ec679debd2067b629d55efa3ebf4}{save\+Decks}} (const std\+::vector$<$ std\+::shared\+\_\+ptr$<$ Flash\+Card\+Deck $>$ $>$ decks)
+\begin{DoxyCompactList}\small\item\em takes in a vector of decks, and saves them into the file system \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ Flash\+Card\+Deck $>$ $>$ \mbox{\hyperlink{_file_management_8cpp_a54f34fdd05361e7b4d4b799d5b182434}{load\+Decks}} ()
+\begin{DoxyCompactList}\small\item\em Loads all the decks from the file system into a vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+implements functions for saving and loading decks. 
+
+\begin{DoxyAuthor}{Author}
+Bruce Scott 
+\end{DoxyAuthor}
+
+
+Definition in file \mbox{\hyperlink{_file_management_8cpp_source}{File\+Management.\+cpp}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_file_management_8cpp_a54f34fdd05361e7b4d4b799d5b182434}\label{_file_management_8cpp_a54f34fdd05361e7b4d4b799d5b182434} 
+\index{FileManagement.cpp@{FileManagement.cpp}!loadDecks@{loadDecks}}
+\index{loadDecks@{loadDecks}!FileManagement.cpp@{FileManagement.cpp}}
+\doxysubsubsection{\texorpdfstring{loadDecks()}{loadDecks()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::shared\+\_\+ptr$<$ Flash\+Card\+Deck $>$ $>$ load\+Decks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Loads all the decks from the file system into a vector. 
+
+\begin{DoxyReturn}{Returns}
+A vector of all card decks found 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_file_management_8cpp_source_l00046}{46}} of file \mbox{\hyperlink{_file_management_8cpp_source}{File\+Management.\+cpp}}.
+
+\Hypertarget{_file_management_8cpp_a2b97ec679debd2067b629d55efa3ebf4}\label{_file_management_8cpp_a2b97ec679debd2067b629d55efa3ebf4} 
+\index{FileManagement.cpp@{FileManagement.cpp}!saveDecks@{saveDecks}}
+\index{saveDecks@{saveDecks}!FileManagement.cpp@{FileManagement.cpp}}
+\doxysubsubsection{\texorpdfstring{saveDecks()}{saveDecks()}}
+{\footnotesize\ttfamily void save\+Decks (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ std\+::shared\+\_\+ptr$<$ Flash\+Card\+Deck $>$ $>$}]{decks }\end{DoxyParamCaption})}
+
+
+
+takes in a vector of decks, and saves them into the file system 
+
+
+\begin{DoxyParams}{Parameters}
+{\em decks} & list of decks to save \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_file_management_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{_file_management_8cpp_source}{File\+Management.\+cpp}}.
+

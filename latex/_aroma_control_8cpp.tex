@@ -1,0 +1,110 @@
+\doxysection{src/\+Aroma\+Control.cpp File Reference}
+\hypertarget{_aroma_control_8cpp}{}\label{_aroma_control_8cpp}\index{src/AromaControl.cpp@{src/AromaControl.cpp}}
+
+
+Functions to turn difusers on or off.  
+
+
+{\ttfamily \#include "{}../include/\+Aroma\+Control.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_aroma_control_8cpp_a6f4ebdd47678e128db4cb66886281c64}{init\+Pin}} (int pin)
+\begin{DoxyCompactList}\small\item\em Initializes a pin. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_aroma_control_8cpp_a9b3ad14b02482bbc7bf2b839f360d15e}{turn\+On\+Pin}} (int pin)
+\begin{DoxyCompactList}\small\item\em turns a given pin on \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_aroma_control_8cpp_ac6491ee35dc38079d4ba2b0994dbfcb6}{turn\+Off\+Pin}} (int pin)
+\begin{DoxyCompactList}\small\item\em turns a given pin off \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_aroma_control_8cpp_aa24a47862c8ca8510e6c19de12b56704}{execute\+Command}} (const std\+::string \&cmd)
+\begin{DoxyCompactList}\small\item\em executes a given command in the system terminal \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Functions to turn difusers on or off. 
+
+\begin{DoxyAuthor}{Author}
+Bruce Scott 
+\end{DoxyAuthor}
+
+
+Definition in file \mbox{\hyperlink{_aroma_control_8cpp_source}{Aroma\+Control.\+cpp}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_aroma_control_8cpp_aa24a47862c8ca8510e6c19de12b56704}\label{_aroma_control_8cpp_aa24a47862c8ca8510e6c19de12b56704} 
+\index{AromaControl.cpp@{AromaControl.cpp}!executeCommand@{executeCommand}}
+\index{executeCommand@{executeCommand}!AromaControl.cpp@{AromaControl.cpp}}
+\doxysubsubsection{\texorpdfstring{executeCommand()}{executeCommand()}}
+{\footnotesize\ttfamily void execute\+Command (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{cmd }\end{DoxyParamCaption})}
+
+
+
+executes a given command in the system terminal 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cmd} & the command to execute \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_aroma_control_8cpp_source_l00050}{50}} of file \mbox{\hyperlink{_aroma_control_8cpp_source}{Aroma\+Control.\+cpp}}.
+
+\Hypertarget{_aroma_control_8cpp_a6f4ebdd47678e128db4cb66886281c64}\label{_aroma_control_8cpp_a6f4ebdd47678e128db4cb66886281c64} 
+\index{AromaControl.cpp@{AromaControl.cpp}!initPin@{initPin}}
+\index{initPin@{initPin}!AromaControl.cpp@{AromaControl.cpp}}
+\doxysubsubsection{\texorpdfstring{initPin()}{initPin()}}
+{\footnotesize\ttfamily void init\+Pin (\begin{DoxyParamCaption}\item[{int}]{pin }\end{DoxyParamCaption})}
+
+
+
+Initializes a pin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin} & The pin to initialize \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_aroma_control_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{_aroma_control_8cpp_source}{Aroma\+Control.\+cpp}}.
+
+\Hypertarget{_aroma_control_8cpp_ac6491ee35dc38079d4ba2b0994dbfcb6}\label{_aroma_control_8cpp_ac6491ee35dc38079d4ba2b0994dbfcb6} 
+\index{AromaControl.cpp@{AromaControl.cpp}!turnOffPin@{turnOffPin}}
+\index{turnOffPin@{turnOffPin}!AromaControl.cpp@{AromaControl.cpp}}
+\doxysubsubsection{\texorpdfstring{turnOffPin()}{turnOffPin()}}
+{\footnotesize\ttfamily void turn\+Off\+Pin (\begin{DoxyParamCaption}\item[{int}]{pin }\end{DoxyParamCaption})}
+
+
+
+turns a given pin off 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin} & the pin to turn off \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_aroma_control_8cpp_source_l00038}{38}} of file \mbox{\hyperlink{_aroma_control_8cpp_source}{Aroma\+Control.\+cpp}}.
+
+\Hypertarget{_aroma_control_8cpp_a9b3ad14b02482bbc7bf2b839f360d15e}\label{_aroma_control_8cpp_a9b3ad14b02482bbc7bf2b839f360d15e} 
+\index{AromaControl.cpp@{AromaControl.cpp}!turnOnPin@{turnOnPin}}
+\index{turnOnPin@{turnOnPin}!AromaControl.cpp@{AromaControl.cpp}}
+\doxysubsubsection{\texorpdfstring{turnOnPin()}{turnOnPin()}}
+{\footnotesize\ttfamily void turn\+On\+Pin (\begin{DoxyParamCaption}\item[{int}]{pin }\end{DoxyParamCaption})}
+
+
+
+turns a given pin on 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin} & The pin to turn on \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_aroma_control_8cpp_source_l00027}{27}} of file \mbox{\hyperlink{_aroma_control_8cpp_source}{Aroma\+Control.\+cpp}}.
+

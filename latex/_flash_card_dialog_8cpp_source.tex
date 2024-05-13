@@ -1,0 +1,72 @@
+\doxysection{Flash\+Card\+Dialog.\+cpp}
+\hypertarget{_flash_card_dialog_8cpp_source}{}\label{_flash_card_dialog_8cpp_source}\index{src/FlashCardDialog.cpp@{src/FlashCardDialog.cpp}}
+\mbox{\hyperlink{_flash_card_dialog_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}../include/FlashCardDialog.h"{}}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00015}00015\ FlashCardDialog::FlashCardDialog(wxWindow*\ parent,\ \textcolor{keyword}{const}\ wxString\&\ title,\ \textcolor{keyword}{const}\ std::vector<std::shared\_ptr<FlashCard>>\&\ flashcards)}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00016}00016\ \ \ \ \ :\ wxDialog(parent,\ wxID\_ANY,\ title,\ wxDefaultPosition,\ wxSize(400,\ 300)),\ flashcards(flashcards),\ currentCardIndex(0),\ flipped(false)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{comment}{//\ Create\ UI\ elements}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00019}00019\ \ \ \ \ flashcardText\ =\ \textcolor{keyword}{new}\ wxStaticText(\textcolor{keyword}{this},\ wxID\_ANY,\ \textcolor{stringliteral}{"{}"{}},\ wxDefaultPosition,\ wxDefaultSize,\ wxALIGN\_CENTRE);}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{comment}{//\ Set\ up\ sizers\ for\ layout}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00022}00022\ \ \ \ \ wxBoxSizer*\ vBox\ =\ \textcolor{keyword}{new}\ wxBoxSizer(wxVERTICAL);}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00023}00023\ \ \ \ \ vBox-\/>Add(flashcardText,\ 1,\ wxEXPAND\ |\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00025}00025\ \ \ \ \ wxBoxSizer*\ hBox\ =\ \textcolor{keyword}{new}\ wxBoxSizer(wxHORIZONTAL);}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00026}00026\ \ \ \ \ wxButton*\ prevButton\ =\ \textcolor{keyword}{new}\ wxButton(\textcolor{keyword}{this},\ wxID\_ANY,\ \textcolor{stringliteral}{"{}Previous"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00027}00027\ \ \ \ \ wxButton*\ flipButton\ =\ \textcolor{keyword}{new}\ wxButton(\textcolor{keyword}{this},\ wxID\_ANY,\ \textcolor{stringliteral}{"{}Flip"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00028}00028\ \ \ \ \ wxButton*\ nextButton\ =\ \textcolor{keyword}{new}\ wxButton(\textcolor{keyword}{this},\ wxID\_ANY,\ \textcolor{stringliteral}{"{}Next"{}});}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00030}00030\ \ \ \ \ \textcolor{comment}{//\ Bind\ events\ to\ event\ handlers}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00031}00031\ \ \ \ \ prevButton-\/>Bind(wxEVT\_BUTTON,\ \&FlashCardDialog::OnPrevious,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00032}00032\ \ \ \ \ flipButton-\/>Bind(wxEVT\_BUTTON,\ \&FlashCardDialog::OnFlip,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00033}00033\ \ \ \ \ nextButton-\/>Bind(wxEVT\_BUTTON,\ \&FlashCardDialog::OnNext,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00035}00035\ \ \ \ \ hBox-\/>Add(prevButton,\ 0,\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00036}00036\ \ \ \ \ hBox-\/>Add(flipButton,\ 0,\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00037}00037\ \ \ \ \ hBox-\/>Add(nextButton,\ 0,\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00039}00039\ \ \ \ \ vBox-\/>Add(hBox,\ 0,\ wxEXPAND);}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00040}00040\ \ \ \ \ SetSizerAndFit(vBox);}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00042}00042\ \ \ \ \ \textcolor{comment}{//\ Display\ the\ first\ flashcard}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00043}00043\ \ \ \ \ ShowQuestion();}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00044}00044\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00051}00051\ \textcolor{keywordtype}{void}\ FlashCardDialog::OnNext(wxCommandEvent\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00052}00052\ \ \ \ \ \textcolor{keywordflow}{if}\ (currentCardIndex\ <\ flashcards.size()\ -\/\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ currentCardIndex++;}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ flipped\ =\ \textcolor{keyword}{false};\ \ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ ShowQuestion();}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00056}00056\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00057}00057\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00064}00064\ \textcolor{keywordtype}{void}\ FlashCardDialog::OnPrevious(wxCommandEvent\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{if}\ (currentCardIndex\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ currentCardIndex-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ flipped\ =\ \textcolor{keyword}{false};\ \ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ ShowQuestion();}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00070}00070\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00077}00077\ \textcolor{keywordtype}{void}\ FlashCardDialog::OnFlip(wxCommandEvent\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00078}00078\ \ \ \ \ flipped\ =\ !flipped;}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00079}00079\ \ \ \ \ \textcolor{keywordflow}{if}\ (flipped)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ ShowAnswer();}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00081}00081\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ ShowQuestion();}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00083}00083\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00084}00084\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00089}00089\ \textcolor{keywordtype}{void}\ FlashCardDialog::ShowQuestion()\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00090}00090\ \ \ \ \ flashcardText-\/>SetLabel(wxString::Format(\textcolor{stringliteral}{"{}Question:\ \%s"{}},\ flashcards[currentCardIndex]-\/>getQuestion()));}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00096}00096\ \textcolor{keywordtype}{void}\ FlashCardDialog::ShowAnswer()\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00097}00097\ \ \ \ \ flashcardText-\/>SetLabel(wxString::Format(\textcolor{stringliteral}{"{}Answer:\ \%s"{}},\ flashcards[currentCardIndex]-\/>getAnswer()));}
+\DoxyCodeLine{\Hypertarget{_flash_card_dialog_8cpp_source_l00098}00098\ \}}
+
+\end{DoxyCode}

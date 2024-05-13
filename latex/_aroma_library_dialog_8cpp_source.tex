@@ -1,0 +1,67 @@
+\doxysection{Aroma\+Library\+Dialog.\+cpp}
+\hypertarget{_aroma_library_dialog_8cpp_source}{}\label{_aroma_library_dialog_8cpp_source}\index{src/AromaLibraryDialog.cpp@{src/AromaLibraryDialog.cpp}}
+\mbox{\hyperlink{_aroma_library_dialog_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}../include/AromaLibraryDialog.h"{}}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00014}00014\ AromaLibraryDialog::AromaLibraryDialog(\textcolor{keyword}{const}\ wxString\&\ title,\ \textcolor{keyword}{const}\ wxArrayString\&\ aromas)}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00015}00015\ \ \ \ \ :\ wxDialog(nullptr,\ wxID\_ANY,\ title,\ wxDefaultPosition,\ wxSize(600,\ 400)),\ aromas(aromas)\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00017}00017\ \ \ \ \ \textcolor{comment}{//\ Create\ UI\ elements}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00018}00018\ \ \ \ \ aromaListBox\ =\ \textcolor{keyword}{new}\ wxListBox(\textcolor{keyword}{this},\ wxID\_ANY,\ wxDefaultPosition,\ wxDefaultSize);}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00019}00019\ \ \ \ \ selectButton\ =\ \textcolor{keyword}{new}\ wxButton(\textcolor{keyword}{this},\ wxID\_ANY,\ \textcolor{stringliteral}{"{}Select\ Aroma"{}});}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00020}00020\ \ \ \ \ closeButton\ =\ \textcolor{keyword}{new}\ wxButton(\textcolor{keyword}{this},\ wxID\_ANY,\ \textcolor{stringliteral}{"{}Close"{}});}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{comment}{//\ Connect\ events\ to\ event\ handlers}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00023}00023\ \ \ \ \ selectButton-\/>Bind(wxEVT\_BUTTON,\ \&AromaLibraryDialog::selectAroma,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00024}00024\ \ \ \ \ closeButton-\/>Bind(wxEVT\_BUTTON,\ \&AromaLibraryDialog::OnClose,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00025}00025\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00026}00026\ \ \ \ \ \textcolor{comment}{//\ Set\ initial\ aromas}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00027}00027\ \ \ \ \ setAromas(aromas);}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00029}00029\ \ \ \ \ \textcolor{comment}{//\ Set\ up\ the\ layout}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00030}00030\ \ \ \ \ wxBoxSizer*\ vbox\ =\ \textcolor{keyword}{new}\ wxBoxSizer(wxVERTICAL);}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00031}00031\ \ \ \ \ wxBoxSizer*\ hbox\ =\ \textcolor{keyword}{new}\ wxBoxSizer(wxHORIZONTAL);}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00033}00033\ \ \ \ \ hbox-\/>Add(selectButton,\ 0,\ wxALIGN\_CENTER\ |\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00034}00034\ \ \ \ \ hbox-\/>Add(closeButton,\ 0,\ wxALIGN\_CENTER\ |\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00035}00035\ \ \ \ \ vbox-\/>Add(aromaListBox,\ 1,\ wxEXPAND\ |\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00036}00036\ \ \ \ \ vbox-\/>Add(hbox,\ 1,\ wxEXPAND\ |\ wxALL,\ 10);}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00037}00037\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00038}00038\ \ \ \ \ SetSizerAndFit(vbox);}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00039}00039\ \ \ \ \ Centre();}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00040}00040\ \}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00047}00047\ \textcolor{keywordtype}{void}\ AromaLibraryDialog::selectAroma(wxCommandEvent\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00048}00048\ \ \ \ \ wxString\ selection\ =\ aromaListBox-\/>GetStringSelection();}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{if}\ (!selection.IsEmpty())\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ selectedAroma\ =\ selection;}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ wxMessageBox(\textcolor{stringliteral}{"{}Selected\ Aroma:\ "{}}\ +\ selection,\ \textcolor{stringliteral}{"{}Aroma\ Information"{}},\ wxOK\ |\ wxICON\_INFORMATION,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00053}00053\ \}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00059}00059\ wxArrayString\ AromaLibraryDialog::getAromas()\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{return}\ aromas;}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00061}00061\ \}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00067}00067\ \textcolor{keywordtype}{void}\ AromaLibraryDialog::setAromas(wxArrayString\ aromas)\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00068}00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (aromaListBox)\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ wxString\&\ aroma\ :\ aromas)\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ aromaListBox-\/>Append(aroma);}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00072}00072\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ the\ case\ where\ aromaListBox\ is\ null}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ wxMessageBox(\textcolor{stringliteral}{"{}Error:\ aromaListBox\ is\ null"{}},\ \textcolor{stringliteral}{"{}Error"{}},\ wxOK\ |\ wxICON\_ERROR,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00075}00075\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00076}00076\ \}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00082}00082\ wxString\ AromaLibraryDialog::getSelectedAroma()\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{return}\ selectedAroma;}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00084}00084\ \}}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00091}00091\ \textcolor{keywordtype}{void}\ AromaLibraryDialog::OnClose(wxCommandEvent\&\ event)\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00092}00092\ \ \ \ \ EndModal(wxID\_OK);}
+\DoxyCodeLine{\Hypertarget{_aroma_library_dialog_8cpp_source_l00093}00093\ \}}
+
+\end{DoxyCode}

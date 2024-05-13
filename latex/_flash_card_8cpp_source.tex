@@ -1,0 +1,42 @@
+\doxysection{Flash\+Card.\+cpp}
+\hypertarget{_flash_card_8cpp_source}{}\label{_flash_card_8cpp_source}\index{src/FlashCard.cpp@{src/FlashCard.cpp}}
+\mbox{\hyperlink{_flash_card_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}../include/FlashCard.h"{}}}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00016}00016\ FlashCard::FlashCard(\textcolor{keyword}{const}\ std::string\&\ q,\ \textcolor{keyword}{const}\ std::string\&\ a)\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00018}00018\ \ \ \ \ this-\/>question\ =\ q;}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00019}00019\ \ \ \ \ this-\/>answer\ =\ a;}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00020}00020\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00026}00026\ \textcolor{keywordtype}{void}\ FlashCard::setQuestion(\textcolor{keyword}{const}\ std::string\&\ q)}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00027}00027\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00028}00028\ \ \ \ \ question\ =\ q;}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00029}00029\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00035}00035\ \textcolor{keywordtype}{void}\ FlashCard::setAnswer(\textcolor{keyword}{const}\ std::string\&\ a)}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00036}00036\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00037}00037\ \ \ \ \ answer\ =\ a;}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00038}00038\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00044}00044\ std::string\ FlashCard::getQuestion()}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00045}00045\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00046}00046\ \ \ \ \ \textcolor{keywordflow}{return}\ question;}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00047}00047\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00053}00053\ std::string\ FlashCard::getAnswer()}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00054}00054\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00055}00055\ \ \ \ \ \textcolor{keywordflow}{return}\ answer;}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00056}00056\ \}}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00062}00062\ std::string\ FlashCard::toString()}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00063}00063\ \{}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00064}00064\ \ \ \ \ std::string\ res\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00065}00065\ \ \ \ \ res\ +=\ \textcolor{stringliteral}{"{}Question:\ "{}}\ +\ getQuestion()\ +\ \textcolor{stringliteral}{"{}\(\backslash\)nAnswer:\ "{}}\ +\ getAnswer();}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{\Hypertarget{_flash_card_8cpp_source_l00067}00067\ \}}
+
+\end{DoxyCode}

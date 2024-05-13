@@ -1,0 +1,41 @@
+\doxysection{Aroma\+Control.\+cpp}
+\hypertarget{_aroma_control_8cpp_source}{}\label{_aroma_control_8cpp_source}\index{src/AromaControl.cpp@{src/AromaControl.cpp}}
+\mbox{\hyperlink{_aroma_control_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}../include/AromaControl.h"{}}}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00013}\mbox{\hyperlink{_aroma_control_8cpp_a6f4ebdd47678e128db4cb66886281c64}{00013}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_aroma_control_8cpp_a6f4ebdd47678e128db4cb66886281c64}{initPin}}(\textcolor{keywordtype}{int}\ pin)}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00014}00014\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00015}00015\ \ \ \ \ \textcolor{comment}{//\ Command\ to\ init\ a\ pin}}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ cmd\ =\ \textcolor{stringliteral}{"{}raspi-\/gpio\ set\ "{}}\ +\ std::to\_string(pin)\ +\ \textcolor{stringliteral}{"{}\ op"{}};}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00017}00017\ \ \ \ \ \mbox{\hyperlink{_aroma_control_8cpp_aa24a47862c8ca8510e6c19de12b56704}{executeCommand}}(cmd);}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{comment}{//\ Turns\ the\ pin\ off,\ because\ default\ state\ is\ on}}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00020}00020\ \ \ \ \ \mbox{\hyperlink{_aroma_control_8cpp_ac6491ee35dc38079d4ba2b0994dbfcb6}{turnOffPin}}(pin);}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00021}00021\ \}}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00027}\mbox{\hyperlink{_aroma_control_8cpp_a9b3ad14b02482bbc7bf2b839f360d15e}{00027}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_aroma_control_8cpp_a9b3ad14b02482bbc7bf2b839f360d15e}{turnOnPin}}(\textcolor{keywordtype}{int}\ pin)}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00028}00028\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00029}00029\ \ \ \ \ \textcolor{comment}{//\ Calls\ terminal\ command\ to\ turn\ pin\ on}}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ cmd\ =\ \textcolor{stringliteral}{"{}raspi-\/gpio\ set\ "{}}\ +\ std::to\_string(pin)\ +\ \textcolor{stringliteral}{"{}\ dh"{}};}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00031}00031\ \ \ \ \ \mbox{\hyperlink{_aroma_control_8cpp_aa24a47862c8ca8510e6c19de12b56704}{executeCommand}}(cmd);}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00032}00032\ \}}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00038}\mbox{\hyperlink{_aroma_control_8cpp_ac6491ee35dc38079d4ba2b0994dbfcb6}{00038}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_aroma_control_8cpp_ac6491ee35dc38079d4ba2b0994dbfcb6}{turnOffPin}}(\textcolor{keywordtype}{int}\ pin)}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00039}00039\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00041}00041\ \ \ \ \ \textcolor{comment}{//\ Calls\ terminal\ command\ to\ turn\ pin\ off}}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00042}00042\ \ \ \ \ \textcolor{keyword}{const}\ std::string\ cmd\ =\ \textcolor{stringliteral}{"{}raspi-\/gpio\ set\ "{}}\ +\ std::to\_string(pin)\ +\ \textcolor{stringliteral}{"{}\ dl"{}};}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00043}00043\ \ \ \ \ \mbox{\hyperlink{_aroma_control_8cpp_aa24a47862c8ca8510e6c19de12b56704}{executeCommand}}(cmd);}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00044}00044\ \}}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00050}\mbox{\hyperlink{_aroma_control_8cpp_aa24a47862c8ca8510e6c19de12b56704}{00050}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_aroma_control_8cpp_aa24a47862c8ca8510e6c19de12b56704}{executeCommand}}(\textcolor{keyword}{const}\ std::string\&\ cmd)}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00051}00051\ \{}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{comment}{//\ Converts\ the\ given\ string\ to\ a\ c-\/like\ string\ to\ execute,\ then\ calls\ it\ from\ system}}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00054}00054\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ cString\ =\ cmd.c\_str();}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00055}00055\ \ \ \ \ \textcolor{keywordtype}{int}\ exitCode\ =\ system(cString);}
+\DoxyCodeLine{\Hypertarget{_aroma_control_8cpp_source_l00056}00056\ \}}
+
+\end{DoxyCode}
